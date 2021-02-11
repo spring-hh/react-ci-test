@@ -8,7 +8,7 @@ executors:
     working_directory: ~/repo
   slack-executor:
     docker:
-      - image: 'cibuilds/base:latest'
+      - image: cibuilds/base:latest
     resource_class: small
 
 aliases:
@@ -215,6 +215,15 @@ workflows:
       - deploy-to-cloudfront:
           requires:
             - deploy-to-aws-s3
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - master
+      - notify-via-slack:
+          requires:
+            - deploy-to-cloudfront
           filters:
             branches:
               only:
