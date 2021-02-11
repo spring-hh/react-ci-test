@@ -23,7 +23,8 @@ jobs:
           key: app-{{ checksum "package.json" }}
 
   deploy-to-aws-s3:
-    docker: circleci/node:14.15.3
+    docker:
+      - image: circleci/node:14.15.3
     workig_directory: ~/repo
     steps:
       - checkout
@@ -59,7 +60,8 @@ jobs:
           fi
 
   deploy-to-cloudfront:
-    docker: circleci/node:14.15.3
+    docker:
+      - image: circleci/node:14.15.3
     workig_directory: ~/repo
     steps:
       - checkout
