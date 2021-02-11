@@ -8,19 +8,19 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Show current branch
-        command: echo ${CURRENT_BRANCH}
-      - restoere_cache:
-        keys:
-          - app-{{ checksum "package.json" }}
-          - app-
+          name: Show current branch
+          command: echo ${CURRENT_BRANCH}
+      - restore_cache:
+          keys:
+            - app-{{ checksum "package.json" }}
+            - app-
       - run:
-        name: Install dependencies
-        command: npm install
+          name: Install dependencies
+          command: npm install
       - save_cache:
-        path:
-          - node_modules
-        key: app-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+          key: app-{{ checksum "package.json" }}
 
   deploy-to-aws-s3:
     docker: circleci/node:14.15.3
